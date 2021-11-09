@@ -1,0 +1,270 @@
+{#
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#}
+<!doctype html>
+  <html>
+  <head>
+    <title>Vote the US</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+      <!-- use the font -->
+      <style>
+        body {
+          font-family: 'Roboto', sans-serif;
+        }
+        .vertical-align {
+          min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+          min-height: 100vh; /* These two lines are counted as one :-)       */
+
+          display: flex;
+          align-items: center;
+        }
+        .row {
+          height:33.3vh;
+        }
+      </style>
+  </head>
+  <body style="background-color: #abdbe3;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <a style="text-align:  right" href="Disconnect">Disconnect</a>
+      <p>DO NOT REFRESH THE PAGE</p>
+    </nav>
+    <div class="vertical-align">
+      <div class="container-fluid">
+      <div class="row" style="margin-top: 5%;">
+        <div class="col-12">
+          <div id="user-deck" class="card-deck">
+            
+          </div>
+        </div>
+      </div>
+    
+      <div class="row" style="margin-top: 5%;">
+        <div class="col-12">
+          <div class="card-deck">
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke;  cursor: pointer;"><h5><span style="font-size: 40px; color: whitesmoke;" id="vote-1">0.5</span></h5></p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;" ><span style="font-size: 50px;" id="vote-2">1</span></p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;">
+              <span style="font-size: 50px;" id="vote-3">2</span></p>
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;"><span style="font-size: 50px;" id="vote-4">3</span></p></p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;">
+              <span style="font-size: 50px;" id="vote-5">5</span></p>
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;">
+              <span style="font-size: 50px;" id="vote-6">8</span></p>
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;">
+              <span style="font-size: 50px;" id="vote-7">13</span></p>
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;">
+              <span style="font-size: 50px;" id="vote-8">21</span></p>
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;">
+              <span style="font-size: 50px;" id="vote-9">40</span></p>
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;">
+              <span style="font-size: 50px;" id="vote-10">?</span></p>
+            </p>
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center">
+            <p class="card-text" style="color: whitesmoke; cursor: pointer;"><span style="font-size: 50px;"><i class="fa fa-coffee" id="vote-11"></i></span></p>
+            </p>
+          </div>
+        </div>
+        
+      </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div>
+      <p>Connected users:</p>
+      <ul id="chat-response"></ul>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+    // [START gae_flex_websockets_js]
+    $(function() {
+      /* If the main page is served via https, the WebSocket must be served via
+      "wss" (WebSocket Secure) */
+      var user = Math.random().toString(36).substring(2,7);
+
+      var scheme = window.location.protocol == "https:" ? 'wss://' : 'ws://';
+      var webSocketUri =  scheme
+      + window.location.hostname
+      + (location.port ? ':'+location.port: '')
+      + '/chat';
+
+      /* Get elements from the page */
+      var form = $('#chat-form');
+      var textarea = $('#chat-text');
+      var output = $('#chat-response');
+      var status = $('#chat-status');
+
+      $('#vote-1').click(function(e) {
+          var vote = $("#vote-1").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-2').click(function(e) {
+          var vote = $("#vote-2").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-3').click(function(e) {
+          var vote = $("#vote-3").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-4').click(function(e) {
+          var vote = $("#vote-4").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-5').click(function(e) {
+          var vote = $("#vote-5").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-6').click(function(e) {
+          var vote = $("#vote-6").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-7').click(function(e) {
+          var vote = $("#vote-7").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-8').click(function(e) {
+          var vote = $("#vote-8").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-9').click(function(e) {
+          var vote = $("#vote-9").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-10').click(function(e) {
+          var vote = $("#vote-10").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+      $('#vote-11').click(function(e) {
+          var vote = $("#vote-11").html();
+          websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+      });
+
+
+      /* Helper to keep an activity log on the page. */
+      function log(text){
+        status.append($('<li>').text(text));
+      }
+
+      /* Establish the WebSocket connection and register event handlers. */
+      var websocket = new WebSocket(webSocketUri);
+
+      websocket.onopen = function() {
+        websocket.send(JSON.stringify({'user': user, 'value': 'connected', 'status': "connection"}));
+        log('Connected');
+      };
+
+      websocket.onclose = function() {
+        websocket.send(JSON.stringify({'user': user, 'value': 'disconnected', 'status': "connection"}));
+        log('Closed');
+      };
+
+      websocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        console.log(data);
+
+        if ('status' in data && data['status'] === 'connection' && data['value'] == 'connected' && data['user'] !== user){
+            output.append('<li id="'+data["user"]+'">'+data["user"]+'</li>');
+        }
+
+        if ('status' in data && data['status'] === 'connection' && data['value'] == 'disconnected' && data['user'] !== user){
+            output.remove('#'+data["user"]);
+        }
+
+        if ('status' in data && data['status'] === 'users' && data['value']){
+            data['value'].forEach(function(element) {
+              if ($('#'+element).length == 0) output.append('<li id="'+element+'">'+element+'</li>');
+            })
+        }
+
+      };
+
+      websocket.onerror = function(e) {
+        log('Error (see console)');
+        console.log(e);
+      };
+    });
+    // [END gae_flex_websockets_js]
+  </script>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>
