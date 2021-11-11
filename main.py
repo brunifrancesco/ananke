@@ -15,9 +15,11 @@
 from __future__ import print_function
 
 # [START gae_flex_websockets_app]
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_sockets import Sockets
 import json
+import random
+
 
 app = Flask(__name__)
 sockets = Sockets(app)
@@ -36,9 +38,8 @@ class Report:
             self.votes[data['user']] = None
             return 
         user=data['user']
-        vote=data['value']
+        vote=data['value'].strip()
         self.votes[user] = vote
-        print(self.votes)
 
     @property
     def sum(self):
@@ -54,7 +55,6 @@ class Report:
 
     @property
     def users(self):
-        print(self.votes)
         return list(self.votes.keys())
     
 report = Report()
@@ -81,9 +81,19 @@ def chat_socket(ws):
 def index():
     return render_template('index.html')
 
+@app.route('/vote/<user>')
+def vote(user):
+    return render_template('vote.html', user=user)
+
+
 @app.route('/vote')
-def vote():
-    return render_template('vote.html')
+def landing():
+    cryptos = ['Dash', 'Chainlink', 'Enjin', 'Omisego', 'Basic', 'Gnosis', 'Komodo', 'Aelf', 'diamond', 'Litecoin', '(ZRX)', 'Nxt', 'Factom', 'Dent', 'MaidSafeCoin', 'Gemini', 'Nebulas', 'Digixdao', 'Binance', 'Electroneum', 'Metal', 'Digibyte', 'Enigma', 'Quant', 'ledger', 'Dogecoin', 'Ignis', 'Qash', 'Bancor', 'classicEthereum', 'Golem', 'Bitshares', 'Holochain', 'logo', 'Aurora', 'Iota', 'logos', 'Aragon', 'Ethereum', 'PivX', 'Decentraland', 'Populous', 'Quarkchain', 'Iostoken', 'Nexo', 'Reddcoin', 'Aeternity', 'Ravencoin', 'Polymath', 'BitTorrent', 'Maker', 'Decred', 'Ardor']
+    user = random.choice(cryptos)
+    return redirect("/vote/%s" %user, code=302)
+
+
+
 
 @app.route('/reveal')
 def reveal():
