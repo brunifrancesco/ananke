@@ -1,0 +1,49 @@
+<!doctype html>
+  <html>
+  <head>
+    <title>Ananke</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+    <!-- use the font -->
+    <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .vote {
+      display:flex;
+      justify-content:center;
+      align-items:center; 
+      font-size: 50px; 
+      color: whitesmoke;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %} -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#"><h1>Ananke</h1></a>
+      <a class="ml-auto" style="text-align: right" href="Disconnect">Disconnect</a>
+    </nav>
+    {% block content %}{% endblock %}
+    <div class="footer fixed-bottom navbar bg-light">
+      <div class="col-6">
+        <span>Made with love <span class="fa fa-heart" style="color: red"></span></span>
+      </div>
+      <div class="col-6 text-right">
+        Contribute to the <a href="https://github.com/brunifrancesco/ananke">Ananke project</a>
+      </div>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </html>

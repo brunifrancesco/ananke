@@ -1,125 +1,82 @@
-{#
-# Copyright 2018 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#}
-<!doctype html>
-  <html>
-  <head>
-    <title>Vote the US</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'base.html' %}
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
-    <!-- use the font -->
-    <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
-    .vote {
-      display:flex;
-      justify-content:center;
-      align-items:center; 
-      font-size: 50px; 
-      color: whitesmoke;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"><h1>Ananke</h1></a>
-    <a class="ml-auto" style="text-align: right" href="Disconnect">Disconnect</a>
-  </nav>
-  <div>
-    <div class="container-fluid">
-      <div class="row ml-auto text-right mt-5">
-        <div class="col-12">
-          <h4>Voters: </h4><span id="user-count"></span>
-        </div>    
-      </div>
-
-      <div class="row" style="margin-top: 15%">
-        <div class="col-12">
-          <h3>Cast your vote, {{ user }}</h3>
-          <div class="card-deck mt-3">
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-1">
-                0.5
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-2">
-                1
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-3">
-                2
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-4">
-                3
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-5">
-                5
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-6">
-                8
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-7">
-                13
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-8">
-                21
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-9">
-                40
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-10">
-                ?
-              </div>
-            </div>
-            <div class="card" style="background-color: #063970">
-              <div class="card-body text-center vote" id="vote-11">
-                <i class="fa fa-coffee" id="vote-11"></i>
-              </div>
-            </div>
-      </div>
-      
-        </div>
-      </div>
-    </div>
+{% block content %}
+<div class="container-fluid">
+  <div class="row ml-auto text-right mt-5">
+    <div class="col-12">
+      <h4>Voters: </h4><span id="user-count"></span>
+    </div>    
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script>
+  <div class="row" style="margin-top: 15%">
+    <div class="col-12">
+      <h3>Cast your vote, {{ user }}</h3>
+      <div class="card-deck mt-3">
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-1">
+            0.5
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-2">
+            1
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-3">
+            2
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-4">
+            3
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-5">
+            5
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-6">
+            8
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-7">
+            13
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-8">
+            21
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-9">
+            40
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-10">
+            ?
+          </div>
+        </div>
+        <div class="card" style="background-color: #063970">
+          <div class="card-body text-center vote" id="vote-11">
+            <i class="fa fa-coffee" id="vote-11"></i>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
     // [START gae_flex_websockets_js]
     $(function() {
       /* If the main page is served via https, the WebSocket must be served via
@@ -130,7 +87,7 @@
       var webSocketUri =  scheme
       + window.location.hostname
       + (location.port ? ':'+location.port: '')
-      + '/chat';
+      + '/exchange';
 
       /* Get elements from the page */
       var form = $('#chat-form');
@@ -143,77 +100,77 @@
         var vote = $("#vote-1").text();
         $(".card").css("background-color", "#063970")
         $("#vote-1").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-2').click(function(e) {
         var vote = $("#vote-2").text();
         $(".card").css("background-color", "#063970")
         $("#vote-2").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-3').click(function(e) {
         var vote = $("#vote-3").text();
         $(".card").css("background-color", "#063970")
         $("#vote-3").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-4').click(function(e) {
         var vote = $("#vote-4").text();
         $(".card").css("background-color", "#063970")
         $("#vote-4").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-5').click(function(e) {
         var vote = $("#vote-5").text();
         $(".card").css("background-color", "#063970")
         $("#vote-5").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-6').click(function(e) {
         var vote = $("#vote-6").text();
         $(".card").css("background-color", "#063970")
         $("#vote-6").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-7').click(function(e) {
         var vote = $("#vote-7").text();
         $(".card").css("background-color", "#063970")
         $("#vote-7").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-8').click(function(e) {
         var vote = $("#vote-8").text();
         $(".card").css("background-color", "#063970")
         $("#vote-8").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-9').click(function(e) {
         var vote = $("#vote-9").text();
         $(".card").css("background-color", "#063970")
         $("#vote-9").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-10').click(function(e) {
         var vote = $("#vote-10").text();
         $(".card").css("background-color", "#063970")
         $("#vote-10").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
       $('#vote-11').click(function(e) {
         var vote = $("#vote-11").text();
         $(".card").css("background-color", "#063970")
         $("#vote-11").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'action':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
       });
 
 
@@ -226,12 +183,12 @@
       var websocket = new WebSocket(webSocketUri);
 
       websocket.onopen = function() {
-        websocket.send(JSON.stringify({'user': user, 'value': 'connected', 'status': "connection"}));
+        websocket.send(JSON.stringify({'user': user, 'value': null, 'status': "connect"}));
         log('Connected');
       };
 
       websocket.onclose = function() {
-        websocket.send(JSON.stringify({'user': user, 'value': 'disconnected', 'status': "connection"}));
+        websocket.send(JSON.stringify({'user': user, 'value': null, 'status': "disconnect"}));
         log('Closed');
       };
 
@@ -248,17 +205,21 @@
           $(".card").css("background-color", "#063970");
         }
 
+        if ('status' in data && data['status'] === 'reset_all'){
+          websocket.send(JSON.stringify({'user': user, 'value': null, 'status': "connect"}));
+        }
+
       };
 
       websocket.onerror = function(e) {
         log('Error (see console)');
         console.log(e);
       };
+
+      $(window).on('unload', function(){
+        websocket.send(JSON.stringify({'user': user, 'value': null, 'status': "disconnect"}));
+      });
     });
     // [END gae_flex_websockets_js]
   </script>
-</body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</html>
+{% endblock content %}

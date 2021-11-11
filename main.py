@@ -24,27 +24,74 @@ import random
 app = Flask(__name__)
 sockets = Sockets(app)
 
-class Report:
 
-    def __init__(self):
+
+
+class Room:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(Room, cls).__new__(cls)
+            cls._instance.votes = dict()
+        return cls._instance
+
+    def __add_user(self, user):
+        self.votes[user] = None
+        return self.votes
+
+    def __add_vote(self, user, vote):
+        self.votes[user] = vote.strip()
+        return self.votes
+
+    def __reset(self):
+        return self.votes.fromkeys(self.votes, None)
+
+    def __reset_all(self):
         self.votes = dict()
 
-    def reset(self):
-        self.votes = dict()
+    def __disconnect_user(self, user):
+       return  self.votes.pop(user)
 
-    def add_vote(self, value):
+    def handle_message(self, value):
         data = json.loads(value)
-        if 'status' in data and data['status'] == 'connection':
-            self.votes[data['user']] = None
-            return 
-        user=data['user']
-        vote=data['value'].strip()
-        self.votes[user] = vote
+        print("----------------")
+        print(data)
+        print("----------------")
+        
+        # add user to room
+        if 'status' in data and data['status'] == 'connect':
+            self.__add_user(data['user'])
+            return json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})
+        
+        # reset votes
+        if 'status' in data and data['status'] == 'reset':
+            self.__reset()
+            return json.dumps({'status': 'reset', 'value': None, 'user': user})
+
+        # reset all
+        if 'status' in data and data['status'] == 'resetAll':
+            self.__reset_all()
+            return json.dumps({'status': 'reset', 'value': 'all', 'user': user})
+        
+        # add vote
+        if 'status' in data and data['status'] == 'vote':
+            self.__add_vote(data['user'], data['value'])
+
+        # reveal 
+        if 'status' in data and data['status'] == 'reveal':
+            return json.dumps({'status': 'reveal', 'value':{'avg': self.avg, 'votes': list(self.votes.values())}, 'user': user})
+        
+        # user disconnect
+        if 'status' in data and data['status'] == 'disconnect':
+            self.__disconnect_user(data['user'])
+            return json.dumps({'status': 'disconnect', 'value':data['user'], 'user': data['user']})
 
     @property
     def sum(self):
         if self.votes:
-            return sum(map(lambda item: int(item), self.votes.values()))
+            digits = filter(lambda item: item.isdigit(), self.votes.values)
+            return sum(map(int, digits))
         return 0
 
     @property
@@ -57,15 +104,16 @@ class Report:
     def users(self):
         return list(self.votes.keys())
     
-report = Report()
 
-@sockets.route('/chat')
+
+@sockets.route('/exchange')
 def chat_socket(ws):
     while not ws.closed:
         message = ws.receive()
         if message is None:  # message is "None" if the client has closed.
             continue
-        report.add_vote(message)
+        result = Room().handle_message(message)
+        
         # Send the message to all clients connected to this webserver
         # process. (To support multiple processes or instances, an
         # extra-instance storage or messaging system would be required.)
@@ -73,12 +121,18 @@ def chat_socket(ws):
         user = json.loads(message)['user']
         for client in clients:
             client.ws.send(message)
-            client.ws.send(json.dumps({'status': 'users', 'value':report.users, 'user': user}))
-# [END gae_flex_websockets_app]
+            if result:
+                client.ws.send(result)
+
+# - admin enters
+  # - user enters
+  # - user vote
+  # - admin reset: each user reset vote
 
 
 @app.route('/')
 def index():
+    room = Room()
     return render_template('index.html')
 
 @app.route('/vote/<user>')
