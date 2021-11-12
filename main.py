@@ -62,30 +62,30 @@ class Room:
         # add user to room
         if 'status' in data and data['status'] == 'connect':
             self.__add_user(data['user'])
-            return json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})
+            return [json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})]
         
         # reset votes
         if 'status' in data and data['status'] == 'reset':
             self.__reset()
-            return json.dumps({'status': 'reset', 'value': None, 'user': user})
+            return [json.dumps({'status': 'reset', 'value': None, 'user': data['user']})]
 
         # reset all
-        if 'status' in data and data['status'] == 'resetAll':
+        if 'status' in data and data['status'] == 'reset_all':
             self.__reset_all()
-            return json.dumps({'status': 'reset', 'value': 'all', 'user': user})
+            return [json.dumps({'status': 'reset', 'value': 'all', 'user': data['user']})]
         
         # add vote
         if 'status' in data and data['status'] == 'vote':
             self.__add_vote(data['user'], data['value'])
-
-        # reveal 
-        if 'status' in data and data['status'] == 'reveal':
-            return json.dumps({'status': 'reveal', 'value':{'avg': self.avg, 'votes': list(self.votes.values())}, 'user': user})
+            return []
         
         # user disconnect
         if 'status' in data and data['status'] == 'disconnect':
             self.__disconnect_user(data['user'])
-            return json.dumps({'status': 'disconnect', 'value':data['user'], 'user': data['user']})
+            return [
+                json.dumps({'status': 'disconnect', 'value':data['user'], 'user': data['user']}),
+                json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})
+            ]
 
     @property
     def sum(self):
@@ -101,10 +101,12 @@ class Room:
         return None
 
     @property
-    def users(self):
+    def grades(self):
         return list(self.votes.keys())
     
-
+    @property
+    def users(self):
+        return list(self.votes.values())
 
 @sockets.route('/exchange')
 def chat_socket(ws):
@@ -121,8 +123,8 @@ def chat_socket(ws):
         user = json.loads(message)['user']
         for client in clients:
             client.ws.send(message)
-            if result:
-                client.ws.send(result)
+            for action in result:
+                client.ws.send(action)
 
 # - admin enters
   # - user enters

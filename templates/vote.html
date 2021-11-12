@@ -9,7 +9,7 @@
     </div>    
   </div>
 
-  <div class="row" style="margin-top: 15%">
+  <div class="row" style="margin-top: 10%">
     <div class="col-12">
       <h3>Cast your vote, {{ user }}</h3>
       <div class="card-deck mt-3">
@@ -170,7 +170,7 @@
         var vote = $("#vote-11").text();
         $(".card").css("background-color", "#063970")
         $("#vote-11").parent().css("background-color", "#abdbe3");
-        websocket.send(JSON.stringify({'user': user, 'value': vote, 'status':'vote'}));
+        websocket.send(JSON.stringify({'user': user, 'value': 'coffee', 'status':'vote'}));
       });
 
 
@@ -207,6 +207,10 @@
 
         if ('status' in data && data['status'] === 'reset_all'){
           websocket.send(JSON.stringify({'user': user, 'value': null, 'status': "connect"}));
+        }
+
+        if ('status' in data && data['status'] === 'reset'){
+          $(".card").css("background-color", "#063970");
         }
 
       };
