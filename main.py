@@ -137,6 +137,11 @@ def index():
     room = Room()
     return render_template('index.html')
 
+@app.route('/2')
+def index2():
+    room = Room()
+    return render_template('index2.html')
+
 @app.route('/vote/<user>')
 def vote(user):
     return render_template('vote.html', user=user)

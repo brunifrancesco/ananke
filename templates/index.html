@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid text-dark">
   
   <div class="row ml-auto text-right mt-5">
     <div class="col-12">
@@ -11,7 +11,7 @@
 
   <div class="row" style="margin-top: 10%">
     <div class="col-12">
-      <h3>Here's your votes:</h3>
+      <h3 id="novotes">No votes yet</h3>
       <div class="card-deck mt-3" id="card-deck">
         
       </div>
@@ -20,8 +20,8 @@
   </div>
   <div class="row">
     <div class="col-12 mt-5">
-      <button id="reveal" style="background-color: #1D84B5; border: #1D84B5;" type="button" class="btn btn-primary btn-lg">Reveal</button>
-      <button id="reset" style="background-color: #1D84B5; border: #1D84B5;" type="button" class="btn btn-primary btn-lg">Reset</button>
+      <button id="reveal" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg" disabled="true">Reveal</button>
+      <button id="reset" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg" disabled="true">Reset</button>
     </div>
   </div>
 
@@ -66,6 +66,7 @@
         // count voters
         if ('status' in data && data['status'] === 'users' && data['value']){
           $("#user-count").text(data['value'].length);
+
           return;
         }
 
@@ -77,12 +78,15 @@
           }  
         }
         if('status' in data && data['status'] === 'vote'){
+          $("#reveal").prop("disabled",false);
+          $("#reset").prop("disabled",false);
+          $("#novotes").css('display', 'none');
           var user = data['user'].replace(" ", "");
           var elementExist = $('#card-'+user).length
           if(elementExist){
             $("#card-vote-"+user).html(data['value']);
           }else{
-            var card = '<div id="card-'+user+'"" class="card" style="background-color: #063970; max-width: 100px"><div class="card-body text-center vote"><span id="card-vote-'+user+'" style="display: none" class="voteNumber">'+data['value']+'</span><span id="card-vote-placeholder-"'+user+'" class="votePlaceholder">*</span></div></div>'
+            var card = '<div id="card-'+user+'"" class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center vote"><span id="card-vote-'+user+'" style="display: none" class="voteNumber">'+data['value']+'</span><span id="card-vote-placeholder-"'+user+'" class="votePlaceholder">*</span></div></div>'
             $("#card-deck").append(card);  
             if(data['value'] === 'coffee'){
               $("#card-vote-"+user).html('<i class="fa fa-coffee"></i>');
@@ -101,6 +105,7 @@
       $("#reset").click(function(e){
         $(".card").remove();
         $("#reveal").prop("disabled",false);
+        $("#novotes").css('display', 'block');
         websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "reset"}));
       });
 

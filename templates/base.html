@@ -25,19 +25,60 @@
   </style>
 </head>
 
-<body>
+<body class="bg-light">
   <!-- {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
     {% endfor %} -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"><h1>Ananke</h1></a>
+    <nav class="navbar navbar-expand-lg  bg-light text-dark">
+      <a class="navbar-brand" href="#">
+          <img src="{{ url_for('static', filename='logo.png') }}" width="100" height="100" alt="">
+      </a>
+      <span class="ml-auto">
+        <a href="">Ananke</a>
+        <div class="vr"></div>
+        <span class="ml-auto"><a href="" title="How it works" data-toggle="modal" data-target="#exampleModalCenter">How it works</a></span>
+        <div class="vr"></div>
+        <span class="ml-auto"><a href="/vote" title="Voting page">Voting link</a></span>
+      </span>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">How Ananke works</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Ananke is another single-team poker planning tool. <br><br>
+              A poker planning is a method aimed to estimate the effort required to complete a job. <br><br>
+              It involves the whole team who expresses the vote and it is widely used for timeboxing <a href="https://www.pm-partners.com.au%2Fwhat-is-agile-philosophy-and-principles%2F&usg=AOvVaw0libsBHahxfZovH8j5Lwh_">Agile</a> principles. More on this <a href="https://en.wikipedia.org%2Fwiki%2FPlanning_poker&usg=AOvVaw3DQmOEraHyl6FHPp91WqLV">here</a>. <br><br>
+              This tools works as following
+              <br>
+              <ul>
+                <li>Admin/Scrum masters point to <a href="/">root page</a></li>
+                <li>Voters/team members point to the <a href="/vote">voting link page</a></li>
+              </ul>
+              Each voter will have an identifer assigned which follows the following schema:
+              <ul>
+                <li>an adjective</li>
+                <li>a crypto name</li>
+              </ul>
+              <br>
+              Once all votes have been received, the master can reveal them to make them visible or reset them to start over.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
     {% block content %}{% endblock %}
     <div class="footer fixed-bottom navbar bg-light">
-      <div class="col-6">
-        <span>Made with love <span class="fa fa-heart" style="color: red"></span></span>
-      </div>
-      <div class="col-6 text-right">
+      <div class="col-12 text-right">
+        <i class="fa fa-github"></i>
         Contribute to the <a href="https://github.com/brunifrancesco/ananke">Ananke project</a>
       </div>
     </div>
