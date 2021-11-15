@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+    
+    <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='logoFDC500.png') }}"/>
 
     <!-- use the font -->
     <style>
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Lalezar', cursive;
     }
     .vote {
       display:flex;
@@ -22,6 +27,17 @@
       color: whitesmoke;
       cursor: pointer;
     }
+    a, a:hover, a:active, a:visited { color: whitesmoke; }
+    .navbar-nav > li{
+      padding-left:10px;
+      padding-right:10px;
+    }
+    .flex-center {
+      display: flex;
+      justify-content:center;
+      text-align: center;
+    }
+
   </style>
 </head>
 
@@ -29,16 +45,20 @@
   <!-- {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
     {% endfor %} -->
-    <nav class="navbar navbar-expand-lg  bg-light text-dark">
-      <a class="navbar-brand" href="#">
+    <div style="height:10px; background-color: #FDC500;"></div>
+    <nav class="navbar navbar-expand-lg text-dark bg-dark">
+      <a class="navbar-brand" href="/">
           <img src="{{ url_for('static', filename='logo.png') }}" width="100" height="100" alt="">
       </a>
-      <span class="ml-auto">
-        <a href="">Ananke</a>
-        <div class="vr"></div>
-        <span class="ml-auto"><a href="" title="How it works" data-toggle="modal" data-target="#exampleModalCenter">How it works</a></span>
-        <div class="vr"></div>
-        <span class="ml-auto"><a href="/vote" title="Voting page">Voting link</a></span>
+      <span style="font-size: 22px;" class="ml-auto">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="" title="How it works" data-toggle="modal" data-target="#exampleModalCenter">How it works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/vote" title="Voting page">Voting link</a>
+          </li>
+        </ul>
       </span>
       <!-- Modal -->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -76,8 +96,8 @@
       </div>
     </nav>
     {% block content %}{% endblock %}
-    <div class="footer fixed-bottom navbar bg-light">
-      <div class="col-12 text-right">
+    <div class="footer fixed-bottom navbar" style=" background-color: #FDC500;">
+      <div class="col-12 text-right" style="text-decoration: none;">
         <i class="fa fa-github"></i>
         Contribute to the <a href="https://github.com/brunifrancesco/ananke">Ananke project</a>
       </div>

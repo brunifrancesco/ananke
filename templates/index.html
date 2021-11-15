@@ -4,22 +4,23 @@
 <div class="container-fluid text-dark">
   
   <div class="row ml-auto text-right mt-5">
-    <div class="col-12">
-      <h4>Voters: </h4><span id="user-count">0</span>
+    <div class="col-12" style="font-size: 25px">
+        Voters 
+        <span id="user-count" class="badge badge-light" style="background-color: #00509D; color: whitesmoke;">0</span>
     </div>    
   </div>
 
   <div class="row" style="margin-top: 10%">
-    <div class="col-12">
-      <h3 id="novotes">No votes yet</h3>
-      <div class="card-deck mt-3" id="card-deck">
+    <div class="col-12 text-center">
+      <h2 id="novotes">No votes yet</h2>
+      <div class="flex-center card-deck mt-3" id="card-deck">
         
       </div>
     </div>
     
   </div>
   <div class="row">
-    <div class="col-12 mt-5">
+    <div class="col-12 mt-5 text-center">
       <button id="reveal" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg" disabled="true">Reveal</button>
       <button id="reset" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg" disabled="true">Reset</button>
     </div>
@@ -86,7 +87,7 @@
           if(elementExist){
             $("#card-vote-"+user).html(data['value']);
           }else{
-            var card = '<div id="card-'+user+'"" class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center vote"><span id="card-vote-'+user+'" style="display: none" class="voteNumber">'+data['value']+'</span><span id="card-vote-placeholder-"'+user+'" class="votePlaceholder">*</span></div></div>'
+            var card = '<div id="card-'+user+'" class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center vote"><span id="card-vote-'+user+'" style="display: none" class="voteNumber">'+data['value']+'</span><span id="card-vote-placeholder-'+user+'" class="votePlaceholder"><img width="40" height="40" src="{{ url_for("static", filename="logo.png") }}" /></span></div></div>'
             $("#card-deck").append(card);  
             if(data['value'] === 'coffee'){
               $("#card-vote-"+user).html('<i class="fa fa-coffee"></i>');
