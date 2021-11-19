@@ -21,17 +21,16 @@
   </div>
   <div class="row">
     <div class="col-12 mt-5 text-center">
-      <button id="reveal" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg" disabled="true">Reveal</button>
-      <button id="reset" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg" disabled="true">Reset</button>
+      <button id="reveal" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg shadow-none" disabled="true">Reveal</button>
+      <button id="reset" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn-lg shadow-none" disabled="true">Reset</button>
     </div>
   </div>
   <div class="row">
     <div class="col-12 text-center mt-5">
       <div id="timer">00:01:00</div>
-      <button id="startTimer" style="background-color: #00509D; border: #00509D;"  type="button" class="btn btn-primary btn">Start</button>
-      <button id="resetTimer" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn">Reset</button>
-      <button id="pauseTimer" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn">Pause</button>
-      <button id="resumeTimer" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn" >Resume</button>
+      <button id="startTimer" style="background-color: #00509D; border: #00509D;"  type="button" class="btn btn-primary btn shadow-none">Start</button>
+      <button id="pauseTimer" style="background-color: #00509D; border: #00509D;" disabled="true" type="button" class="btn btn-primary btn shadow-none">Pause</button>
+      <button id="resumeTimer" style="background-color: #00509D; border: #00509D;" disabled="true" type="button" class="btn btn-primary btn shadow-none" >Resume</button>
     </div>
   </div>
   <!-- [END gae_flex_websockets_form] -->
@@ -124,17 +123,27 @@
       };
 
       $('#startTimer').click(function(event){
-        $('#timer').timer({
-          countdown: true,
-          duration: '1m',      // This will start the countdown from 3 mins 40 seconds
-          callback: function() {  // This will execute after the duration has elapsed
-            console.log('Time up!');
-          }
-        });  
+        var startButton = $('#startTimer').text();
+        if(startButton === 'Start') {
+          $('#timer').timer({
+            countdown: true,
+            duration: '1m30s',      // This will start the countdown from 3 mins 40 seconds
+            callback: function() {  // This will execute after the duration has elapsed
+              console.log('Time up!');
+            }
+          });
+          $('#startTimer').text("Reset");
+        }else{
+          $('#timer').timer('reset');  
+        }
+        
+        $('#pauseTimer').prop("disabled", false);
+        $('#resumeTimer').prop("disabled", false);
       });
 
       $('#resetTimer').click(function(event){
         $('#timer').timer('reset');
+        $('#startTimer').prop("disabled", false);
       });
 
       $('#pauseTimer').click(function(event){
