@@ -1,10 +1,10 @@
 from __future__ import print_function
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from flask_sockets import Sockets
 import json
 import random
-
+from itertools import groupby 
 
 app = Flask(__name__)
 sockets = Sockets(app)
@@ -35,6 +35,9 @@ class Room:
 
     def __disconnect_user(self, user):
        return  self.votes.pop(user)
+
+    def __compute_report(self):
+        return [dict(index= index, key= key, value= len(list(value))) for index, (key, value) in enumerate(groupby(sorted(self.votes.values())))]
 
     def handle_message(self, value):
         data = json.loads(value)
@@ -69,6 +72,16 @@ class Room:
                 json.dumps({'status': 'disconnect', 'value':data['user'], 'user': data['user']}),
                 json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})
             ]
+
+        if 'status' in data and data['status'] == 'block':
+            return [
+                json.dumps({'status': 'block', 'value':None, 'user': None}),
+            ] 
+        if 'status' in data and data['status'] == 'reveal':
+            report = self.__compute_report()
+            return [
+                json.dumps({'status': 'report', 'value':report, 'user': None}),
+            ] 
 
     @property
     def sum(self):
@@ -110,7 +123,7 @@ def chat_socket(ws):
 @app.route('/')
 def index():
     room = Room()
-    return render_template('index.html')
+    return render_template('index.html', host=request.host)
 
 @app.route('/2')
 def index2():

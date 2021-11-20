@@ -212,7 +212,13 @@
 
         if ('status' in data && data['status'] === 'reset'){
           $(".card").css("background-color", "#00296B");
+          $(".card").css("pointer-events","auto");
         }
+
+        if ('status' in data && data['status'] === 'block'){
+          $(".card").css("pointer-events","none");
+        }
+
 
       };
 

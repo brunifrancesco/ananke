@@ -33,6 +33,20 @@
       <button id="resumeTimer" style="background-color: #00509D; border: #00509D;" disabled="true" type="button" class="btn btn-primary btn shadow-none" >Resume</button>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Vote</th>
+            <th scope="col">Count</th>            
+          </tr>
+        </thead>
+        <tbody id="body-table">
+        </tbody>
+      </table>
+    </div>
+  </div>
   <!-- [END gae_flex_websockets_form] -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -93,6 +107,9 @@
           var elementExist = $('#card-'+user).length
           if(elementExist){
             $("#card-vote-"+user).html(data['value']);
+            if(data['value'] === 'coffee'){
+              $("#card-vote-"+user).html('<i class="fa fa-coffee"></i>');
+            }
           }else{
             var card = '<div id="card-'+user+'" class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center vote"><span id="card-vote-'+user+'" style="display: none" class="voteNumber">'+data['value']+'</span><span id="card-vote-placeholder-'+user+'" class="votePlaceholder"><img width="40" height="40" src="{{ url_for("static", filename="logo.png") }}" /></span></div></div>'
             $("#card-deck").append(card);  
@@ -101,6 +118,13 @@
             }
           }
         }
+      
+        if('status' in data && data['status'] === 'report'){
+          data['value'].forEach(function(element){
+            $("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
+          });
+          
+        }
 
       };
 
@@ -108,6 +132,8 @@
         $(".voteNumber").show();
         $(".votePlaceholder").hide();
         $("#reveal").prop("disabled",true);
+        websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "block"}));
+        websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "reveal"}));
       });
 
       $("#reset").click(function(e){
@@ -153,10 +179,8 @@
       $('#resumeTimer').click(function(event){
         $('#timer').timer('resume');
       });
-
       
     });
-    // [END gae_flex_websockets_js]
   </script>
 </div>
 {% endblock %}
