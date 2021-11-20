@@ -34,6 +34,20 @@
       <button id="resumeTimer" style="background-color: #00509D; border: #00509D;" type="button" class="btn btn-primary btn" >Resume</button>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Vote</th>
+            <th scope="col">Count</th>            
+          </tr>
+        </thead>
+        <tbody id="body-table">
+        </tbody>
+      </table>
+    </div>
+  </div>
   <!-- [END gae_flex_websockets_form] -->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -105,6 +119,13 @@
             }
           }
         }
+      
+        if('status' in data && data['status'] === 'report'){
+          data['value'].forEach(function(element){
+            $("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
+          });
+          
+        }
 
       };
 
@@ -113,6 +134,7 @@
         $(".votePlaceholder").hide();
         $("#reveal").prop("disabled",true);
         websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "block"}));
+        websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "reveal"}));
       });
 
       $("#reset").click(function(e){
