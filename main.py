@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from flask_sockets import Sockets
 import json
 import random
@@ -70,6 +70,11 @@ class Room:
                 json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})
             ]
 
+        if 'status' in data and data['status'] == 'block':
+            return [
+                json.dumps({'status': 'block', 'value':None, 'user': None}),
+            ] 
+
     @property
     def sum(self):
         if self.votes:
@@ -110,7 +115,7 @@ def chat_socket(ws):
 @app.route('/')
 def index():
     room = Room()
-    return render_template('index.html')
+    return render_template('index.html', host=request.host)
 
 @app.route('/2')
 def index2():
