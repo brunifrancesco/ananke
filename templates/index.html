@@ -33,9 +33,9 @@
       <button id="resumeTimer" style="background-color: #00509D; border: #00509D;" disabled="true" type="button" class="btn btn-primary btn shadow-none" >Resume</button>
     </div>
   </div>
-  <div class="row">
+  <div class="row" style="display: none;" id="table-row">
     <div class="col-12">
-      <table class="table table-striped">
+      <table class="table table-striped" >
         <thead>
           <tr>
             <th scope="col">Vote</th>
@@ -123,7 +123,7 @@
           data['value'].forEach(function(element){
             $("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
           });
-          
+         $("#table-row").show();
         }
 
       };
@@ -140,6 +140,7 @@
         $(".card").remove();
         $("#reveal").prop("disabled",false);
         $("#novotes").css('display', 'block');
+        $("#table-row").hide();
         websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "reset"}));
       });
 
