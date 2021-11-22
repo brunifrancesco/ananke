@@ -55,12 +55,20 @@
     .badge-custom {
       background-color: #00509D;
       border-radius: 8px;
-      box-shadow: 1px 1px 1px 1px black;
       color:  whitesmoke;
       height: 25px;
       padding: 5px 3px 0 3px;
       text-align: center;
       min-height: 14px;
+    }
+    .vote-count {
+      width: 30px;
+      height: 30px;
+      color: #00296B;
+      background-color: whitesmoke;
+      border-radius: 50%;
+      padding: 13%;
+      font-size: 20px;
     }
   </style>
 </head>
@@ -77,7 +85,7 @@
             <a class="nav-link" href="" title="How it works" data-toggle="modal" data-target="#exampleModalCenter">How it works</a>
           </li>
           <li class="nav-item">
-            <button class="btn nav-link" id="copy-button" data-clipboard-text="{{ host }}/vote" data-toggle="tooltip" data-placement="top" title="AAA">
+            <button class="btn nav-link" id="copy-button" data-clipboard-text="{{ host }}/vote" data-toggle="tooltip" data-placement="top" title="Click to copy link">
               Click to copy voting link
             </button>
           </li>

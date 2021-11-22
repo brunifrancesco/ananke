@@ -129,10 +129,17 @@
         }
       
         if('status' in data && data['status'] === 'report'){
+          $("#card-deck").empty();
           data['value'].forEach(function(element){
-            $("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
+            if(element['key'] === 'coffee'){
+              element['key'] = '<i class="fa fa-coffee"></i>';
+            }
+            //$("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
+            var card = '<div class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center"><span class="card-title vote">'+ element['key']+'</span><p class="card-text vote-count badge">'+element['value'].length+'</p></div></div>';
+
+            $("#card-deck").append(card);
           });
-         $("#table-row").show();
+         
         }
 
       };

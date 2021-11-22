@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+from collections import defaultdict
 from flask import Flask, render_template, redirect, request
 from flask_sockets import Sockets
 import json
@@ -37,7 +38,10 @@ class Room:
        return  self.votes.pop(user)
 
     def __compute_report(self):
-        return [dict(index= index, key= key, value= len(list(value))) for index, (key, value) in enumerate(groupby(sorted(self.votes.values())))]
+        v = defaultdict(list)
+        for key, value in sorted(self.votes.items()):
+          v[value].append(key)
+        return [dict(key=key, value=v[key]) for key, value in v.items()]
 
     def handle_message(self, value):
         data = json.loads(value)
