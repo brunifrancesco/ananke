@@ -21,6 +21,19 @@
     body {
       font-family: 'Lalezar', cursive;
     }
+    html, body {
+      height: 100%;
+    }
+    .main {
+        height: 100%;
+        width: 100%;
+        display: table;
+    }
+    .wrapper {
+        display: table-cell;
+        height: 100%;
+        vertical-align: middle;
+    }
     .vote {
       display:flex;
       justify-content:center;
@@ -49,14 +62,10 @@
       text-align: center;
       min-height: 14px;
     }
-
   </style>
 </head>
 
 <body class="bg-light">
-  <!-- {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %} -->
     <div style="height:10px; background-color: #FDC500;"></div>
     <nav class="navbar navbar-expand-lg text-dark bg-dark">
       <a class="navbar-brand" href="/">
@@ -84,15 +93,15 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body bg-light">
               Ananke is another single-team poker planning tool. <br><br>
               A poker planning is a method aimed to estimate the effort required to complete a job. <br><br>
-              It involves the whole team who expresses the vote and it is widely used for timeboxing <a href="https://www.pm-partners.com.au%2Fwhat-is-agile-philosophy-and-principles%2F&usg=AOvVaw0libsBHahxfZovH8j5Lwh_">Agile</a> principles. More on this <a href="https://en.wikipedia.org%2Fwiki%2FPlanning_poker&usg=AOvVaw3DQmOEraHyl6FHPp91WqLV">here</a>. <br><br>
-              This tools works as following
+              It involves the whole team who expresses the vote and it is widely used for timeboxing <a href="https://www.pm-partners.com.au%2Fwhat-is-agile-philosophy-and-principles%2F&usg=AOvVaw0libsBHahxfZovH8j5Lwh_" style="text-decoration: underline; color: black;">Agile</a> principles. More on this <a href="https://en.wikipedia.org%2Fwiki%2FPlanning_poker&usg=AOvVaw3DQmOEraHyl6FHPp91WqLV" style="text-decoration: underline; color: black;">here</a>. <br><br>
+              This tools works as following:
               <br>
               <ul>
-                <li>Admin/Scrum masters point to <a href="/">root page</a></li>
-                <li>Voters/team members point to the <a href="/vote">voting link page</a></li>
+                <li>Admin/Scrum masters point to root page</a></li>
+                <li>Voters/team members point to the voting link page</a></li>
               </ul>
               Each voter will have an identifer assigned which follows the following schema:
               <ul>
@@ -100,7 +109,10 @@
                 <li>a crypto name</li>
               </ul>
               <br>
-              Once all votes have been received, the master can reveal them to make them visible or reset them to start over.
+              Once all votes have been received, the master can reveal them to make them visible or reset them to start over and get some useful insights about the vote received.
+              No more votes after revealing are allowed.
+              <br> 
+              It is also possible to set up a standalone 1:30min timer.
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,10 +122,18 @@
       </div>
     </nav>
     {% block content %}{% endblock %}
-    <div class="footer fixed-bottom navbar mt-1" style=" background-color: #FDC500;">
-      <div class="col-12 text-right" style="text-decoration: none;">
-        <i class="fa fa-github"></i>
-        Contribute to the <a href="https://github.com/brunifrancesco/ananke">Ananke project</a>
+    <div class="footer fixed-bottom p-2" style=" background-color: #FDC500;">
+      <div class="row">
+        <div class="col-6 text-left" style="text-decoration: none;">
+        v0.2
+      </div>
+      <div class="col-6 text-right" style="text-decoration: none;">
+        <span>
+          <i class="fa fa-github"></i>
+          Contribute to <a href="https://github.com/brunifrancesco/ananke">Ananke</a>
+        </span>
+        
+      </div>
       </div>
     </div>
   </body>
