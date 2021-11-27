@@ -60,7 +60,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script>
-    // [START gae_flex_websockets_js]
+    
+
     $(function() {
       /* If the main page is served via https, the WebSocket must be served via
       "wss" (WebSocket Secure) */
@@ -84,11 +85,7 @@
       var websocket = new WebSocket(webSocketUri);
 
       websocket.onopen = function() {
-        websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "reset_all"}));
-      };
-
-      websocket.onclose = function() {
-        log('Closed');
+        websocket.send(JSON.stringify({'room_key': '{{ room_key }}','user': null, 'value': null, 'status': "reset_all"}));
       };
 
       websocket.onmessage = function(e) {
@@ -134,8 +131,9 @@
             if(element['key'] === 'coffee'){
               element['key'] = '<i class="fa fa-coffee"></i>';
             }
+
             //$("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
-            var card = '<div class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center"><span class="card-title vote">'+ element['key']+'</span><p class="card-text vote-count badge">'+element['value'].length+'</p></div></div>';
+            var card = '<div class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center"><span class="card-title vote" >'+ element['key']+'</span><button class=" btn card-text vote-count badge" data-toggle="tooltip" data-placement="right" title="'+element['value'].join(", ")+'">'+element['value'].length+'</button></div></div>';
 
             $("#card-deck").append(card);
           });
@@ -148,8 +146,8 @@
         $(".voteNumber").show();
         $(".votePlaceholder").hide();
         $("#reveal").prop("disabled",true);
-        websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "block"}));
-        websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "reveal"}));
+        websocket.send(JSON.stringify({'room_key': '{{ room_key }}', 'user': null, 'value': null, 'status': "block"}));
+        websocket.send(JSON.stringify({'room_key': '{{ room_key }}', 'user': null, 'value': null, 'status': "reveal"}));
       });
 
       $("#reset").click(function(e){
@@ -158,7 +156,7 @@
         $("#novotes").css('display', 'block');
         $("#body-table").empty();
         $("#table-row").hide();
-        websocket.send(JSON.stringify({'user': null, 'value': null, 'status': "reset"}));
+        websocket.send(JSON.stringify({'room_key': '{{ room_key }}','user': null, 'value': null, 'status': "reset"}));
       });
 
       websocket.onerror = function(e) {
@@ -197,6 +195,8 @@
       $('#resumeTimer').click(function(event){
         $('#timer').timer('resume');
       });
+
+      
       
     });
   </script>

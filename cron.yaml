@@ -1,0 +1,4 @@
+cron:
+- description: "clean up rooms"
+  url: /reset
+  schedule: every day 00:00
