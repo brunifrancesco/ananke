@@ -201,7 +201,7 @@
 
       websocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
-
+        if('room_key' in data && data['room_key'] != '{{ room_key}}') return;
         // count voters
         if ('status' in data && data['status'] === 'users' && data['value']){
           $("#user-count").text(data['value'].length);
