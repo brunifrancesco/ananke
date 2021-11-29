@@ -33,7 +33,7 @@ def index():
 @app.route('/rooms/<room_key>')
 def rooms(room_key):
     room = RoomContainers().add_room(key=room_key)
-    return render_template('index.html', host=request.host, room_key=room.container_key)
+    return render_template('index.html', host=request.host, scheme=request.scheme, room_key=room.container_key)
 
 @app.route('/rooms/<room_key>/users/<user>/')
 def vote(room_key, user):
