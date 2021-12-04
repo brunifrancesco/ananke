@@ -183,21 +183,22 @@ class Room:
            raise InvalidMessageException("Message is none")
  
         data = json.loads(value)
+
         
         # add user to room
         if 'status' in data and data['status'] == 'connect':
             self.__add_user(data['user'])
-            return [json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})]
+            return [json.dumps({'room_key': data['room_key'], 'status': 'users', 'value':self.users, 'user': data['user']})]
         
         # reset votes
         if 'status' in data and data['status'] == 'reset':
             self.__reset()
-            return [json.dumps({'status': 'reset', 'value': None, 'user': data['user']})]
+            return [json.dumps({'room_key': data['room_key'], 'status': 'reset', 'value': None, 'user': data['user']})]
 
         # reset all
         if 'status' in data and data['status'] == 'reset_all':
             self.__reset_all()
-            return [json.dumps({'status': 'reset', 'value': 'all', 'user': data['user']})]
+            return [json.dumps({'room_key': data['room_key'], 'status': 'reset', 'value': 'all', 'user': data['user']})]
         
         # add vote
         if 'status' in data and data['status'] == 'vote':
@@ -208,18 +209,18 @@ class Room:
         if 'status' in data and data['status'] == 'disconnect':
             self.__disconnect_user(data['user'])
             return [
-                json.dumps({'status': 'disconnect', 'value':data['user'], 'user': data['user']}),
-                json.dumps({'status': 'users', 'value':self.users, 'user': data['user']})
+                json.dumps({'room_key': data['room_key'], 'status': 'disconnect', 'value':data['user'], 'user': data['user']}),
+                json.dumps({'room_key': data['room_key'], 'status': 'users', 'value':self.users, 'user': data['user']})
             ]
 
         if 'status' in data and data['status'] == 'block':
             return [
-                json.dumps({'status': 'block', 'value':None, 'user': None}),
+                json.dumps({'room_key': data['room_key'], 'status': 'block', 'value':None, 'user': None}),
             ] 
         if 'status' in data and data['status'] == 'reveal':
             report = self.__compute_report()
             return [
-                json.dumps({'status': 'report', 'value':report, 'user': None}),
+                json.dumps({'room_key': data['room_key'], 'status': 'report', 'value':report, 'user': None}),
             ] 
         raise InvalidStatusMessageException("No correct status %s" %data.get('status', None))
     
