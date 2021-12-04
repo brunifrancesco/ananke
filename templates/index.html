@@ -131,6 +131,9 @@
             if(element['key'] === 'coffee'){
               element['key'] = '<i class="fa fa-coffee"></i>';
             }
+            if(element['key'] === null){
+              element['key'] = 'no vote';
+            }
 
             //$("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
             var card = '<div class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center"><span class="card-title vote" >'+ element['key']+'</span><button class=" btn card-text vote-count badge" data-toggle="tooltip" data-placement="right" title="'+element['value'].join(", ")+'">'+element['value'].length+'</button></div></div>';
