@@ -132,7 +132,7 @@
               element['key'] = '<i class="fa fa-coffee"></i>';
             }
             if(element['key'] === null){
-              element['key'] = 'no vote';
+              element['key'] = '&#x1F634';
             }
 
             //$("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
@@ -149,6 +149,7 @@
         $(".voteNumber").show();
         $(".votePlaceholder").hide();
         $("#reveal").prop("disabled",true);
+        $('#timer').timer('pause');
         websocket.send(JSON.stringify({'room_key': '{{ room_key }}', 'user': null, 'value': null, 'status': "block"}));
         websocket.send(JSON.stringify({'room_key': '{{ room_key }}', 'user': null, 'value': null, 'status': "reveal"}));
       });
@@ -159,6 +160,7 @@
         $("#novotes").css('display', 'block');
         $("#body-table").empty();
         $("#table-row").hide();
+        $('#timer').timer('pause');
         websocket.send(JSON.stringify({'room_key': '{{ room_key }}','user': null, 'value': null, 'status': "reset"}));
       });
 

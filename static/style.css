@@ -1,0 +1,67 @@
+body {
+  font-family: 'Lalezar', cursive;
+}
+html, body {
+  height: 100%;
+}
+.main {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+.wrapper {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
+.vote {
+  display:flex;
+  justify-content:center;
+  align-items:center; 
+  font-size: 50px; 
+  color: whitesmoke;
+  cursor: pointer;
+}
+a, a:hover, a:active, a:visited { color: whitesmoke; }
+.navbar-nav > li{
+  padding-left:10px;
+  padding-right:10px;
+}
+.flex-center {
+  display: flex;
+  justify-content:center;
+  text-align: center;
+}
+.badge-custom {
+  background-color: #00509D;
+  border-radius: 8px;
+  color:  whitesmoke;
+  height: 25px;
+  padding: 5px 3px 0 3px;
+  text-align: center;
+  min-height: 14px;
+}
+.vote-count {
+  width: 30px;
+  height: 30px;
+  color: #00296B;
+  background-color: whitesmoke;
+  border-radius: 50%;
+  padding: 10%;
+  font-size: 20px;
+}
+.remove_button_css { 
+  outline: none;
+  padding: 5px; 
+  border: 0px; 
+  box-sizing: none; 
+  background-color: transparent; 
+}
+.fake-row {
+  height:10px; 
+  background-color: #FDC500;
+}
+
+.link-guide {
+  text-decoration: underline; color: black;
+}

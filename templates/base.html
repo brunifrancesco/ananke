@@ -14,74 +14,12 @@
     
     <link rel="shortcut icon" type="image/jpg" href="{{ url_for('static', filename='logoFDC500.png') }}"
     />
-    <!-- <link rel="stylesheet" href="https://clipboardjs.com/bower_components/primer-css/css/primer.css"> -->
-
-    <!-- use the font -->
-    <style>
-    body {
-      font-family: 'Lalezar', cursive;
-    }
-    html, body {
-      height: 100%;
-    }
-    .main {
-        height: 100%;
-        width: 100%;
-        display: table;
-    }
-    .wrapper {
-        display: table-cell;
-        height: 100%;
-        vertical-align: middle;
-    }
-    .vote {
-      display:flex;
-      justify-content:center;
-      align-items:center; 
-      font-size: 50px; 
-      color: whitesmoke;
-      cursor: pointer;
-    }
-    a, a:hover, a:active, a:visited { color: whitesmoke; }
-    .navbar-nav > li{
-      padding-left:10px;
-      padding-right:10px;
-    }
-    .flex-center {
-      display: flex;
-      justify-content:center;
-      text-align: center;
-    }
-    .badge-custom {
-      background-color: #00509D;
-      border-radius: 8px;
-      color:  whitesmoke;
-      height: 25px;
-      padding: 5px 3px 0 3px;
-      text-align: center;
-      min-height: 14px;
-    }
-    .vote-count {
-      width: 30px;
-      height: 30px;
-      color: #00296B;
-      background-color: whitesmoke;
-      border-radius: 50%;
-      padding: 10%;
-      font-size: 20px;
-    }
-    .remove_button_css { 
-  outline: none;
-  padding: 5px; 
-  border: 0px; 
-  box-sizing: none; 
-  background-color: transparent; 
-}
-  </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    
 </head>
 
 <body class="bg-light">
-    <div style="height:10px; background-color: #FDC500;"></div>
+    <div class="fake-row"></div>
     <nav class="navbar navbar-expand-lg text-dark bg-dark">
       <a class="navbar-brand" href="/">
           <img src="{{ url_for('static', filename='logo.png') }}" width="100" height="100" alt="">
@@ -111,7 +49,7 @@
             <div class="modal-body bg-light">
               Ananke is another poker planning tool. <br><br>
               A poker planning is a method aimed to estimate the effort required to complete a job. <br><br>
-              It involves the whole team who expresses the vote and it is widely used for timeboxing <a href="https://www.pm-partners.com.au%2Fwhat-is-agile-philosophy-and-principles%2F&usg=AOvVaw0libsBHahxfZovH8j5Lwh_" style="text-decoration: underline; color: black;">Agile</a> principles. More on this <a href="https://en.wikipedia.org%2Fwiki%2FPlanning_poker&usg=AOvVaw3DQmOEraHyl6FHPp91WqLV" style="text-decoration: underline; color: black;">here</a>. <br><br>
+              It involves the whole team who expresses the vote and it is widely used for timeboxing <a href="https://www.pm-partners.com.au%2Fwhat-is-agile-philosophy-and-principles%2F&usg=AOvVaw0libsBHahxfZovH8j5Lwh_" class="link-guide">Agile</a> principles. More on this <a href="https://en.wikipedia.org%2Fwiki%2FPlanning_poker&usg=AOvVaw3DQmOEraHyl6FHPp91WqLV" class="link-guide">here</a>. <br><br>
               This tools works as following:
               <br>
               <ul>
