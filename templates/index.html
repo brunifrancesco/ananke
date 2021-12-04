@@ -132,6 +132,9 @@
             if(element['key'] === 'coffee'){
               element['key'] = '<i class="fa fa-coffee"></i>';
             }
+            if(element['key'] === null){
+              element['key'] = '&#x1F634';
+            }
 
             //$("#body-table").append('<tr><td>'+element["key"]+'</td><td>'+element['value']+'</td></tr>')
             var card = '<div class="card" style="background-color: #00296B; max-width: 100px"><div class="card-body text-center"><span class="card-title vote" >'+ element['key']+'</span><button class=" btn card-text vote-count badge" data-toggle="tooltip" data-placement="right" title="'+element['value'].join(", ")+'">'+element['value'].length+'</button></div></div>';
@@ -147,6 +150,7 @@
         $(".voteNumber").show();
         $(".votePlaceholder").hide();
         $("#reveal").prop("disabled",true);
+        $('#timer').timer('pause');
         websocket.send(JSON.stringify({'room_key': '{{ room_key }}', 'user': null, 'value': null, 'status': "block"}));
         websocket.send(JSON.stringify({'room_key': '{{ room_key }}', 'user': null, 'value': null, 'status': "reveal"}));
       });
@@ -157,6 +161,7 @@
         $("#novotes").css('display', 'block');
         $("#body-table").empty();
         $("#table-row").hide();
+        $('#timer').timer('pause');
         websocket.send(JSON.stringify({'room_key': '{{ room_key }}','user': null, 'value': null, 'status': "reset"}));
       });
 
