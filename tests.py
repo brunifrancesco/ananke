@@ -26,14 +26,6 @@ class RoomContainersTest(unittest.TestCase):
         self.assertEqual(room.container_key, "AAAA")
         self.cleanup()
 
-    def test_add_room_key_not_ok(self):
-        room_containers = RoomContainers()
-        room_containers.add_room("AAAA")
-        room = room_containers.add_room("AAAA")
-        self.assertNotEqual(room, None)
-        self.assertNotEqual(room.container_key, "AAAA")
-        self.cleanup()
-
     def test_get_room(self):
         room_containers = RoomContainers()
         rooms = room_containers.add_room(key="ABC")
@@ -82,7 +74,7 @@ class RoomTest(unittest.TestCase):
 
     def test_handle_message_connect(self):
         room = Room("KEY")
-        data = dict(status="connect", user="franco")
+        data = dict(status="connect", user="franco", room_key="KEY")
 
         data = room.handle_message(json.dumps(data))
         
@@ -95,7 +87,7 @@ class RoomTest(unittest.TestCase):
 
     def test_handle_message_reset(self):
         room = Room("KEY")
-        data = dict(status="reset", user="franco")
+        data = dict(status="reset", user="franco", room_key="KEY")
         room.votes = dict(franco=None)
         data = room.handle_message(json.dumps(data))
         
@@ -108,7 +100,7 @@ class RoomTest(unittest.TestCase):
 
     def test_handle_message_reset_all(self):
         room = Room("KEY")
-        data = dict(status="reset_all", user="franco")
+        data = dict(status="reset_all", user="franco", room_key="KEY")
         room.votes = dict(franco=None)
         data = room.handle_message(json.dumps(data))
         
@@ -120,7 +112,7 @@ class RoomTest(unittest.TestCase):
 
     def test_handle_message_vote(self):
         room = Room("KEY")
-        data = dict(status="vote", user="franco", value='2')
+        data = dict(status="vote", user="franco", value='2', room_key="KEY")
         room.votes = dict(franco=None)
         data = room.handle_message(json.dumps(data))
         assert room.votes['franco'] == '2'
@@ -129,7 +121,7 @@ class RoomTest(unittest.TestCase):
 
     def test_handle_message_disconnect(self):
         room = Room("KEY")
-        data = dict(status="disconnect", user="franco")
+        data = dict(status="disconnect", user="franco", room_key="KEY")
         room.votes = dict(franco=None)
         data = room.handle_message(json.dumps(data))
         assert room.votes == dict()
@@ -138,7 +130,7 @@ class RoomTest(unittest.TestCase):
 
     def test_handle_message_block(self):
         room = Room("KEY")
-        data = dict(status="block")
+        data = dict(status="block", room_key="KEY")
         room.votes = dict(franco=None)
         data = room.handle_message(json.dumps(data))
         assert len(room.votes) == 1
@@ -146,7 +138,7 @@ class RoomTest(unittest.TestCase):
 
     def test_handle_message_reveal(self):
         room = Room("KEY")
-        data = dict(status="reveal")
+        data = dict(status="reveal", room_key="KEY")
         room.votes = dict(franco=1, mike=2)
         data = room.handle_message(json.dumps(data))
         assert len(room.votes) == 2

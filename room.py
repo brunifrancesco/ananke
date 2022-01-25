@@ -4,6 +4,8 @@ import random
 import string
 import json
 from datetime import datetime, timedelta
+from slugify import slugify
+
 
 class RoomNotExistingException(Exception):
     pass
@@ -55,8 +57,11 @@ class RoomContainers:
         Returns:
             TYPE: Description
         """
-        if not key or key in self.rooms.keys():
-            key = result_str = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
+        # TODO handle better index page refresh events (room already exists)
+        if not key:
+            with open("resources/cities.json") as input_cities:
+                cities = json.loads(input_cities.read())
+                key = slugify(random.choice(cities)['city'])
         self.rooms[key] = Room(key)
         return self.rooms[key]
 
