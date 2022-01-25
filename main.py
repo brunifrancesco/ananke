@@ -29,8 +29,8 @@ def reset():
 
 @app.route('/')
 def index():
-    key, _ = RoomContainers().add_room()
-    return redirect("/rooms/%s" %key, code=302)
+    room = RoomContainers().add_room()
+    return redirect("/rooms/%s" %room.container_key, code=302)
 
 @app.route('/rooms/<room_key>')
 def rooms(room_key):

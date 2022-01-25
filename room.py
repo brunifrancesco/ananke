@@ -140,7 +140,7 @@ class Room:
     def __reset(self):
         """Set all votes to None
         """
-        self.votes.fromkeys(self.votes, None)
+        self.votes = self.votes.fromkeys(self.votes, None)
         
 
     def __reset_all(self):
