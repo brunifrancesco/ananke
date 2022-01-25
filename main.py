@@ -34,6 +34,10 @@ def index():
 
 @app.route('/rooms/<room_key>')
 def rooms(room_key):
+    try:
+        RoomContainers().get_room(room_key)
+    except RoomNotExistingException:
+        return render_template('noroom.html')
     return render_template('index.html', host=request.host, scheme=request.scheme, room_key=room_key)
 
 @app.route('/rooms/<room_key>/users/<user>/')
